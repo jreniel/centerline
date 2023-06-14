@@ -13,6 +13,10 @@ class CenterlineError(Exception):
         super(CenterlineError, self).__init__(*args, **kwargs)
 
 
+class InputGeometryEnvelopeIsPointError(exceptions.CenterlineError):
+    default_message = "Input geometry envelope collapses to a point."     
+
+
 class InvalidInputTypeError(CenterlineError):
     default_message = (
         "Input geometry must be of type shapely.geometry.Polygon "
@@ -25,7 +29,7 @@ class TooFewRidgesError(CenterlineError):
         "Number of produced ridges is too small. Please adjust your "
         "interpolation distance."
     )
-
+   
 
 class UnsupportedVectorType(CenterlineError):
     default_message = "No OGR driver was found for the provided file."
