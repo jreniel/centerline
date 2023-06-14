@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from numpy import array
 from scipy.spatial import Voronoi
-from shapely.geometry import LineString, MultiLineString, MultiPolygon, Polygon
+from shapely.geometry import LineString, MultiLineString, MultiPolygon, Polygon, Point
 from shapely.ops import unary_union
 
 from . import exceptions
@@ -36,6 +36,9 @@ class Centerline:
 
         if not self.input_geometry_is_valid():
             raise exceptions.InvalidInputTypeError
+
+        if isinstance(self._input_geometry.envelope, Point):  
+            raise exceptions.InputGeometryEnvelopeIsPointError
 
         self._min_x, self._min_y = self._get_reduced_coordinates()
         self.assign_attributes_to_instance(attributes)
